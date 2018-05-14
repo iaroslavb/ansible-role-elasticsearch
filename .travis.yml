@@ -17,6 +17,7 @@ script:
   - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
   - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become | grep -e 'changed=0.*failed=0'
   - sudo service --status-all  | grep elasticsearch | grep '+'
+  - sudo service elasticsearch status
   - sudo netstat -antlp
 
 notifications:
