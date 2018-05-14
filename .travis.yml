@@ -12,7 +12,11 @@ install:
   - ansible-galaxy install iaroslavb.jre
 
 script:
-  - ansible-playbook -i tests/inventory tests/test.yml --syntax-check 
+  - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
+  - java -version
+  - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
+  - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become | grep -e 'changed=0.*failed=0'
+  - service elasticsearch status | grep -e 'running'
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
